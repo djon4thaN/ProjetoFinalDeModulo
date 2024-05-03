@@ -140,16 +140,18 @@ app.get('/message/:email', (request, response)=>{
         return;
     }
 
-    const verificar = message.filter(mensagem => mensagem.email === email);
+    const verificar = message.find(mensagem => mensagem.email === email);
 
     if(!verificar){
         response.status(400).json({Mensagem: 'Não existe mensagem cadastrada.'});
         return;
     }
 
-    const dados = verificar.map((mensagem) => `ID: ${mensagem.id} | Título: ${mensagem.title} | Descrição: ${mensagem.description}`)
+    const verificar2 = message.filter(mensagens => mensagens.email === email)
 
-    response.status(200).json({message: 'Seja bem-vindo!', data: dados});
+    const dados = verificar2.map((mensagens) => `ID: ${mensagens.id} | Título: ${mensagens.title} | Descrição: ${mensagens.description}`)
+
+    response.status(200).json({message: 'Seja bem-vindo!', data: `${dados}`});
 });
 
 app.put('/message/:id', (request, response)=>{
